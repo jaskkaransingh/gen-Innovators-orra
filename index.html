@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORRO - Fashion & Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+        .feature-section {
+            position: relative;
+            background: url('./assests/image\ 25.png') no-repeat center center/cover;
+            height: 15vh;
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-container {
+            display: flex;
+            gap: clamp(20px, 8vw, 30vh);
+            flex-wrap: wrap;
+            justify-content: center;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .feature-box {
+            color: white;
+            text-align: center;
+            width: clamp(120px, 25vw, 150px);
+            margin-bottom: 10px;
+        }
+
+        .feature-box i {
+            font-size: clamp(24px, 6vw, 40px);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .feature-box p {
+            font-size: clamp(11px, 2.5vw, 14px);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.357);
+            padding: 1vh 2vw;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            min-height: 60px;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.349);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            max-height: clamp(30px, 6vh, 60px);
+            width: auto;
+            display: block;
+            filter: none;
+            transition: filter 0.3s ease;
+        }
+
+        .header.scrolled .logo img {
+            filter: invert(1);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: clamp(15px, 4vw, 12vh);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: clamp(12px, 2.5vw, 14px);
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 1000;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .header.scrolled .nav-menu a {
+            color: black;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: #333;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-left: clamp(10px, 2vw, 20px);
+            position: relative;
+            transition: background 0.3s ease;
+        }
+
+        .header.scrolled .search-container {
+            background: rgb(189, 188, 188);
+        }
+
+        .search-menu-icon {
+            color: #999;
+            font-size: clamp(14px, 3vw, 16px);
+            margin-right: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .header.scrolled .search-menu-icon {
+            color: #666;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            font-size: clamp(12px, 2.5vw, 14px);
+            width: clamp(80px, 15vw, 150px);
+            text-align: center;
+            padding: 0 8px;
+            transition: color 0.3s ease;
+        }
+
+        .header.scrolled .search-input {
+            color: black;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+            text-align: center;
+        }
+
+        .header.scrolled .search-input::placeholder {
+            color: #666;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            margin-left: 8px;
+            font-size: clamp(14px, 3vw, 16px);
+            transition: color 0.3s ease;
+        }
+
+        .header.scrolled .search-btn {
+            color: #666;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: clamp(20px, 4vw, 45px);
+            align-items: center;
+            margin-left: clamp(10px, 2vw, 20px);
+        }
+
+        .nav-icon {
+            color: white;
+            text-decoration: none;
+            font-size: clamp(16px, 3vw, 20px) !important;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled .nav-icon {
+            color: black;
+        }
+
+        .nav-icon:hover {
+            opacity: 0.7;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .header.scrolled .mobile-menu-toggle {
+            color: black;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 85vh;
+            min-height: 500px;
+            display: flex;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-left {
+            width: 50%;
+            background: url('./assests/image\ 3.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-right {
+            width: 50%;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('./assests/image\ 4.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 0;
+            
+        }
+
+        .hero-right::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(42, 42, 42, 0.5);
+        }
+
+        .hero-nav-arrows {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .arrow-btn {
+            width: clamp(40px, 8vw, 50px);
+            height: clamp(40px, 8vw, 50px);
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: clamp(14px, 3vw, 18px);
+        }
+
+        .arrow-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        .hero-content {
+            max-width: 600px;
+            padding: 0 20px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-weight: 300;
+            letter-spacing: clamp(4px, 2vw, 14px);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            z-index: 1;
+            margin-left:-5vh;
+            font-family: 'Kaisei HarunoUmi', serif;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.8rem);
+            margin-bottom: 30px;
+            opacity: 0.9;
+            z-index: 1;
+            margin-top: 4vh;
+            font-family: 'Kaisei HarunoUmi', serif;
+        }
+
+        .hero-button {
+            
+            padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 40px);
+            background: white;
+            margin-left: -20vh;
+            color: black;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            margin-top: 40vh;
+            z-index: 1;
+            font-size: clamp(12px, 2.5vw, 14px);
+            text-align: center;
+        }
+
+        .hero-button:hover {
+            background: black;
+            color: white;
+        }
+
+        .cta-button, .ctaa-button {
+            display: inline-block;
+            padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 40px);
+            background: white;
+            color: black;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            z-index: 1;
+            font-size: clamp(12px, 2.5vw, 14px);
+        }
+
+        .cta-button:hover, .ctaa-button:hover {
+            background: transparent;
+            color: white;
+        }
+
+        .cta-buttton {
+            display: inline-block;
+            padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 40px);
+            color: black;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            background: white;
+            font-size: clamp(12px, 2.5vw, 14px);
+        }
+
+        .cta-buttton:hover {
+            background: black;
+            color: white;
+        }
+        .cttaa-button {
+            display: inline-block;
+            padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 40px);
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            background: black;
+            font-size: clamp(12px, 2.5vw, 14px);
+            border: 2px solid white;
+        }
+
+        .cttaa-button:hover {
+            background: white;
+            color: black;
+        }
+
+        .ship img {
+            height: clamp(150px, 30vh, 300px);
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .color-circle {
+            display: inline-block;
+            width: clamp(16px, 3vw, 20px);
+            height: clamp(16px, 3vw, 20px);
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        .color-circle.white { background-color: white; }
+        .color-circle.navy { background-color: navy; }
+        .color-circle.teal { background-color: rgb(31, 78, 190); }
+        .color-circle.lb { background-color: rgb(29, 131, 203); }
+        .color-circle.mustard { background-color: rgb(189, 197, 135); }
+        .color-circle.gray { background-color: rgb(113, 114, 108); }
+        .color-circle.black { background-color: black; }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            padding: 0.1vh 0vh 3vh;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: clamp(4px, 1.5vw, 10px);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Product Grid */
+        .product-section {
+            padding: clamp(20px, 4vw, 40px) clamp(10px, 2vw, 20px) 20px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 40vw, 280px), 1fr));
+            gap: clamp(15px, 3vw, 30px);
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image, .product-image2 {
+            width: 100%;
+            height: clamp(200px, 35vw, 380px);
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+            object-fit: contain;
+            overflow: hidden;
+        }
+
+        .product-image2 {
+            height: clamp(250px, 45vw, 580px);
+        }
+
+        .product-info {
+            padding: clamp(15px, 3vw, 20px);
+            text-align: left;
+        }
+
+        .product-title {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-price {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: bold;
+            color: #ccc;
+        }
+
+        .heart {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: clamp(24px, 5vw, 44px);
+            color: white;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .heart.active {
+            color: red;
+        }
+
+        /* Special Sections */
+        .feature-sectionn {
+            height: clamp(300px, 65vh, 650px);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: -4vh;
+        }
+
+        .feature-sectionn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Trending Section */
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 35vw, 200px), 1fr));
+            gap: clamp(15px, 2vw, 20px);
+            margin-top: 3vh;
+            margin-bottom: 4vh;
+        }
+
+        .trending-item1, .trending-item2, .trending-item3, .trending-item4 {
+            height: clamp(200px, 40vw, 250px);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            transition: transform 0.3s ease;
+            font-size: clamp(14px, 2.5vw, 18px);
+            font-weight: bold;
+            padding-top: 15vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .trending-item1 { background-image: url("./assests/image\ 12.png"); }
+        .trending-item2 { background-image: url("./assests/image\ 15.png"); }
+        .trending-item3 { background-image: url("./assests/image\ 23.png"); }
+        .trending-item4 { 
+            background-image: url("./assests/image\ 38.png");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .trending-item4:hover {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("assests/image\ 38.png");
+            color: black;
+            font-size: clamp(16px, 3vw, 20px);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            transform: translateY(-10px);
+            cursor: pointer;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+         .trending-item1:hover{
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("assests/image\ 12.png");
+            color: black;
+            font-size: clamp(16px, 3vw, 20px);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            transform: translateY(-10px);
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+
+         .trending-item2:hover{
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("assests/image\ 15.png");
+            color: black;
+            font-size: clamp(16px, 3vw, 20px);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            transform: translateY(-10px);
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+
+         .trending-item3:hover{
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("assests/image\ 23.png");
+            color: black;
+            font-size: clamp(16px, 3vw, 20px);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            transform: translateY(-10px);
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            min-height: 300px;
+            object-fit: cover;
+        }
+
+        .video-text, .video-text2 {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: clamp(24px, 6vw, 36px);
+            font-weight: bold;
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        .video-text {
+            top: 65%;
+        }
+
+        .video-text2 {
+            top: 75%;
+            font-weight: 200;
+            letter-spacing: clamp(4px, 2vw, 20px);
+        }
+
+        .video-overlay, .video-overlay2 {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        .video-overlay {
+            top: 90%;
+        }
+
+        .video-overlay2 {
+            top: 70%;
+        }
+
+        .video-overlay .btn, .video-overlay2 .btn {
+            display: inline-block;
+            padding: clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px);
+            background: #ffffff;
+            color: rgb(0, 0, 0);
+            font-size: clamp(14px, 3vw, 18px);
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .video-overlay2 .btn {
+            border: 2px solid black;
+        }
+
+        .video-overlay .btn:hover {
+            background: #000000;
+            border: 2px solid #ffffff;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            padding: clamp(40px, 6vw, 60px) clamp(10px, 2vw, 20px) 40px;
+            border-top: 1px solid #333;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: clamp(20px, 4vw, 40px);
+        }
+
+        .footer-section h3 {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: clamp(12px, 2.5vw, 14px);
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: clamp(11px, 2vw, 14px);
+        }
+
+        /* Referral Section */
+        .referral-section {
+            background-color: #333;
+            margin-top: 5vh;
+            display: flex;
+            justify-content: center;
+            padding: clamp(20px, 4vw, 40px);
+        }
+
+        .referral-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: clamp(20px, 4vw, 50px);
+            width: 90%;
+            max-width: 1200px;
+            flex-wrap: wrap;
+        }
+
+        .referral-content img {
+            width: clamp(50px, 10vw, 70px);
+            height: auto;
+        }
+
+        .referral-content h3 {
+            color: white;
+            margin: 0;
+            font-size: clamp(14px, 2.5vw, 18px);
+        }
+
+        .referral-content p {
+            color: white;
+            margin: 0;
+            font-size: clamp(12px, 2vw, 14px);
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 15px;
+                flex-wrap: wrap;
+            }
+
+            .nav-menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.9);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                order: 1;
+            }
+
+            .logo {
+                order: 0;
+            }
+
+            .nav-icons {
+                order: 2;
+                gap: 15px;
+                margin-left: auto;
+            }
+
+            .hero {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .hero-left,
+            .hero-right {
+                width: 100%;
+                min-height: 50vh;
+            }
+
+            .hero-nav-arrows {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .trending-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .feature-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .referral-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .video-text, .video-text2 {
+                font-size: clamp(18px, 5vw, 28px);
+            }
+        }
+
+        /* Tablet styles */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero h1 {
+                font-size: clamp(3rem, 6vw, 4.5rem);
+            }
+
+            .hero p {
+                font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 25px;
+            }
+
+            .nav-menu {
+                gap: 6vw;
+            }
+        }
+
+        /* Large screen adjustments */
+        @media (min-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1400px;
+                margin: 0 auto 40px auto;
+            }
+
+            .trending-grid {
+                max-width: 1400px;
+                margin: 3vh auto 4vh auto;
+            }
+
+            .footer-content {
+                max-width: 1400px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* High DPI display adjustments */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .hero h1, .section-title {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo"><img src="assests/logo.png" alt="ORRO Logo"></div>
+        
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        
+        <nav class="nav-menu" id="navMenu">
+            <a href="#">Sale</a>
+            <a href="#">Collections</a>
+            <a href="#">Men</a>
+            <a href="#">Women</a>
+            <a href="#">Kids</a>
+
+            <div class="search-container">
+                <span class="search-menu-icon">☰</span>
+                <input type="text" class="search-input" placeholder="Search">
+                <button class="search-btn">🔍</button>
+            </div>
+
+            <div class="nav-icons">
+                <a href="#" class="nav-icon" title="Cart">🛒</a>
+                <a href="#" class="nav-icon" title="Wishlist">♡</a>
+                <a href="#" class="nav-icon" title="Account">👤</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-left"></div>
+        <div class="hero-right">
+            <div class="hero-content">
+                <h1>PERMAPRESS</h1>
+                <p>FOR THE LAWYER. THE BANKER, THE DOCTOR & OTHER FINE GENTLEMAN</p>
+                <img src="assests/logo.png" style="height: 100px; margin-top: -1vh;margin-bottom: 4vh;" alt="ORRO Logo">
+                <a href="#" class="hero-button" >Shop Now</a>
+            </div>
+        </div>
+
+        <div class="hero-nav-arrows">
+            <button class="arrow-btn">‹</button>
+            <button class="arrow-btn">›</button>
+        </div>
+    </section>
+
+    <section>
+        <div class="video-container">
+            <video autoplay muted loop>
+                <source src="assests/vod1.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="video-overlay">
+                <a href="#shop" class="btn">Watch Now</a>
+            </div>
+            <div>
+                <p class="video-text">Orro</p>
+                <p class="video-text2">Latest Collection</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-section">
+        <div class="trending-grid">
+            <div class="trending-item1">
+                <div style="text-align: center;font-size: 12px;">
+                    <a href="#" class="cta-buttton">Mens Wear</a>
+                </div>
+            </div>
+            <div class="trending-item2">
+                <div style="text-align: center;font-size: 12px;">
+                    <a href="#" class="cta-buttton">Kids Wear</a>
+                </div>
+            </div>
+            <div class="trending-item3">
+                <div style="text-align: center; font-size: 12px;">
+                    <a href="#" class="cta-buttton">Womens Wear</a>
+                </div>
+            </div>
+            <div class="trending-item4">
+                <div style="text-align: center;font-size: 12px;">
+                    <a href="#" class="cta-buttton">Shoe Collection</a>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <a href="#" class="cta-button">Explore More</a>
+        </div>
+    </section>
+
+    <!-- Shop The Look Section -->
+    <section class="product-section" style="margin-top: -2vh;">
+        <h2 class="section-title">Shop The Look</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assests/image 11.png" alt="Classic Business Suit" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Classic Business Suit</div>
+                    <div class="product-price">$299</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle navy"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Navy Blue</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assests/Rectangle 15.png" alt="Women Casual Blazer" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Women Casual Blazer</div>
+                    <div class="product-price">$159</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle teal"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Teal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assests/image 24.png" alt="Premium Unisex Shirt" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Premium Unisex Shirt</div>
+                    <div class="product-price">$79</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle lb"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Light Blue</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assests/image 14.png" alt="Casual Men Wear" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Casual Men Wear</div>
+                    <div class="product-price">$45</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle white"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">White</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <a href="#" class="cta-button">Explore All Looks</a>
+        </div>
+    </section>
+
+    <!-- Feature Section -->
+    <section class="feature-sectionn">
+        <img src="assests/image 9.png" alt="Feature Image" style="width: 100%; height: 100%; object-fit: contain;">
+    </section>
+    
+    <section>
+        <div class="video-container">
+            <video autoplay muted loop>
+                <source src="assests/vid2.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="video-overlay">
+                <a href="#shop" class="btn">Watch Now</a>
+            </div>
+            <div>
+                <p class="video-text">Orro</p>
+                <p class="video-text2">Trending Now</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Section -->
+    <section class="product-section">
+        <h2 class="section-title" style="padding: -1vh 0vh 3vh;">Trending Now</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image2">
+                    <img src="assests/image 17.png" alt="Men Casual Wear T-shirt" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Men Casual Wear T-shirt</div>
+                    <div class="product-price">$129</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle white"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">White</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image2">
+                    <img src="assests/image 21.png" alt="Women Casual Blazer" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Women Casual Blazer</div>
+                    <div class="product-price">$159</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle lb"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Light Blue</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image2">
+                    <img src="assests/image 19.png" alt="Premium Trouser for Men" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Premium Trouser for Men</div>
+                    <div class="product-price">$79</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle mustard"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Beige</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image2">
+                    <img src="assests/image 92.png" alt="Casual Suit for Women" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Casual Suit for Women</div>
+                    <div class="product-price">$45</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle black"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Black</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-bottom: -1.5vh;">
+            <a href="#" class="cta-button">Explore All Trends</a>
+        </div>
+    </section>
+
+    <section>
+        <div class="video-container" style="z-index: 0;">
+            <video autoplay muted loop>
+                <source src="assests/shoes.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="video-overlay2">
+                <a href="#shop" class="cttaa-button">Explore Shoes</a>
+            </div>
+        </div>
+    </section>
+
+    <h2 class="section-title" style="position: relative;margin-top: -10vh; align-items: center;">Shoes Mania</h2>
+
+    <!-- Shoes Section -->
+    <section class="product-section" style="margin-top: -3vh;margin-bottom: -6vh;">
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assests/image 36.png" alt="Classic Oxford" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Classic Oxford</div>
+                    <div class="product-price">$ 245</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle lb"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Light Blue</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assests/image 38.png" alt="Premium Sneakers" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Premium Sneakers</div>
+                    <div class="product-price">$ 145</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle gray"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Gray</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assests/image 18.png" alt="Leather Boots" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Leather Boots</div>
+                    <div class="product-price">$ 215</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle white"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">White</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assests/image 37.png" alt="Casual Loafers" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Casual Loafers</div>
+                    <div class="product-price">$ 215</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle white"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">White</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section class="product-section">
+        <h2 class="section-title" style="padding: -1vh 0vh 3vh;">New Arrivals</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image2">
+                    <img src="assests/image 33.png" alt="Men Casual Polo T-shirt" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Men Casual Polo T-shirt</div>
+                    <div class="product-price">$129</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle white"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">White</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image2">
+                    <img src="assests/image 39.png" alt="Women Long Blazer" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Women Long Blazer</div>
+                    <div class="product-price">$259</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle lb"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Light Blue</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image2">
+                    <img src="assests/image 41.jpg" alt="Women Black Party Dress" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Women Black Party Dress</div>
+                    <div class="product-price">$279</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle black"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">Black</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image2">
+                    <img src="assests/image 40.png" alt="Professional Shirt Men" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="heart" style="z-index: 1;">♡</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Professional Shirt Men</div>
+                    <div class="product-price">$145</div>
+                    <div style="display: flex; align-items: center; font-size: 1.2rem; font-weight: bold;">
+                        <span class="color-circle white"></span>
+                        <p style="padding-left: 2vh; font-size: 1.2rem; font-weight: bold; color: #ccc; padding-top: 1.3vh; margin: 0;">White</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-bottom: 2.5vh;">
+            <a href="#" class="cta-button">Explore New Arrivals</a>
+        </div>
+    </section>
+
+    <section>
+        <div class="ship">
+            <section class="feature-section">
+                <div class="feature-container">
+                    <div class="feature-box">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <p>Free shipping on<br> every order</p>
+                    </div>
+                    <div class="feature-box">
+                        <i class="fa-solid fa-gift"></i>
+                        <p>Get special offers on<br> your first app order</p>
+                    </div>
+                    <div class="feature-box">
+                        <i class="fa-solid fa-scissors"></i>
+                        <p>Free alteration for all<br> purchased garments</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+    
+    <section class="referral-section">
+        <div class="referral-content">
+            <img src="assests/prize.png" alt="Prize Icon">
+            <div>
+                <h3>REFER AND EARN WITH THE REFERRAL PROGRAM</h3>
+                <p>Invite your friends and earn upto $299 in the discounts</p>
+            </div>
+            <div>
+                <a href="#" class="ctaa-button">Sign Up Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About ORRO</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Investors</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#">Newsletter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Download Our App</h3>
+                <ul>
+                    <li><img src="assests/1.png" width="80%" height="50%"></li>
+                    <li><img src="assests/l.png" width="80%" height="50%"></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ORRO Fashion. All rights reserved. | Premium fashion for the modern lifestyle.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Product card hover effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.boxShadow = '0 20px 40px rgba(255, 255, 255, 0.1)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Heart functionality
+        const hearts = document.querySelectorAll('.heart');
+        hearts.forEach(heart => {
+            heart.addEventListener('click', function (e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                if (this.classList.contains('active')) {
+                    this.textContent = '♥';
+                } else {
+                    this.textContent = '♡';
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const navMenu = document.getElementById('navMenu');
+            if (window.innerWidth > 768) {
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+
+</html>
+    
